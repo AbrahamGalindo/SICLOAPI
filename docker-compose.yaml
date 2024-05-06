@@ -1,0 +1,25 @@
+############################################################################
+#
+# Docker compose YAML file
+# For documentation see: https://docs.docker.com/compose/yml/
+#
+# Docker Siclo Plus Automation
+#
+############################################################################
+
+version: "3"
+
+services:
+
+  api_automation:
+    build:
+      context: .
+    env_file: ./.env
+    command: dotnet test --logger:"console;verbosity=detailed" siclo_plus_api.sln
+    ports:
+      - "8000:8000"
+    environment:
+      - DOTNET_RUNNING_IN_CONTAINER=true
+    volumes:
+      - ./siclo_plus_api:/code
+
